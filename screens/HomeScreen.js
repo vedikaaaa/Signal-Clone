@@ -3,11 +3,9 @@ import React from "react";
 
 const HomeScreen = () => {
   return (
-    <SafeAreaView>
-     <ScrollView>
-      
-     </ScrollView>
-    </SafeAreaView>
+    <View>
+      <Text>HomeScreen</Text>
+    </View>
   );
 };
 
