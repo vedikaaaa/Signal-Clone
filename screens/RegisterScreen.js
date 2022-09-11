@@ -10,7 +10,7 @@ import {
 } from "firebase/auth";
 import { StatusBar } from "expo-status-bar";
 import { registerRootComponent } from "expo";
-import auth from "../firebase";
+import { auth } from "../firebase";
 
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState("");
@@ -25,9 +25,10 @@ const RegisterScreen = ({ navigation }) => {
   }, [navigation]);
 
   const register = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        return updateProfile(auth.authUser, {
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((authUser) => {
+        authUser.user.updateProfile({
           displayName: name,
           photoURL:
             imageUrl ||
