@@ -10,7 +10,7 @@ import {
 } from "firebase/auth";
 import { StatusBar } from "expo-status-bar";
 import { registerRootComponent } from "expo";
-import { auth } from "../firebase";
+import {auth} from "../firebase.js";
 
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState("");

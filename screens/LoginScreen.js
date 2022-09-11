@@ -5,6 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { KeyboardAvoidingView } from "react-native";
 import { useEffect } from "react";
 import { auth } from "../firebase";
+// import "firebase/auth";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
