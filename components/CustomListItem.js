@@ -2,9 +2,9 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Avatar, ListItem } from "react-native-elements";
 
-const CustomListItem = ({id,chatName,enterChat}) => {
+const CustomListItem = ({ id, chatName, enterChat }) => {
   return (
-    <ListItem>
+    <ListItem onPress={()=>enterChat(id,chatName)} key={id} bottomDivider>
       <Avatar
         rounded
         source={{
@@ -15,12 +15,11 @@ const CustomListItem = ({id,chatName,enterChat}) => {
       />
       <ListItem.Content>
         <ListItem.Title style={{ fontWeight: "800" }}>
-          First Chat
+          {chatName}
         </ListItem.Title>
-        <ListItem.Subtitle
-          numberOfLines={1}
-          ellipsizeMode="tail"
-        >this is a test subtitle</ListItem.Subtitle>
+        <ListItem.Subtitle numberOfLines={1} ellipsizeMode="tail">
+          ABC
+        </ListItem.Subtitle>
       </ListItem.Content>
     </ListItem>
   );

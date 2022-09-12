@@ -19,8 +19,7 @@ const AddChatScreen = ({ navigation }) => {
         chatName: input,
       })
       .then(() => {
-        console.log("hello");
-        navigation.goBack();
+        navigation.replace("Home");
       })
       .catch((error) => alert(error));
   };
@@ -43,5 +42,9 @@ const AddChatScreen = ({ navigation }) => {
 export default AddChatScreen;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: "white",
+    padding: 30,
+    height: "100%",
+  },
 });
