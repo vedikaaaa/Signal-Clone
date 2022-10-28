@@ -84,6 +84,17 @@ const ChatScreen = ({ navigation, route }) => {
 
   const sendMessage = () => {
     Keyboard.dismiss();
+    const newMessages = [
+      ...messages,
+      {
+        body: input,
+        date: "1663309307368",
+        number: "9999288548",
+        time: new Date().getTime(),
+      },
+    ];
+    route.params.setMessages(newMessages);
+    setMessages(newMessages);
     // db.collection("chats").doc(route.params.id).collection("messages").add({
     //   timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     //   message: input,
@@ -91,7 +102,7 @@ const ChatScreen = ({ navigation, route }) => {
     //   email: auth.currentUser.email,
     //   photoURL: auth.currentUser.photoURL,
     // });
-    // setInput("");
+    setInput("");
   };
   // useLayoutEffect(() => {
   //   const unsubscribe = db
@@ -121,8 +132,8 @@ const ChatScreen = ({ navigation, route }) => {
           <>
             <ScrollView contentContainerStyle={{ paddingTop: 15 }}>
               {messages?.map((data) =>
-                // data.email === auth.currentUser.email ? (
-                  <View key={data.time} style={styles.sender}>
+                data.number !== route.params.chatName ? (
+                  <View key={data.time} style={styles.receiver}>
                     <Avatar
                       position="absolute"
                       rounded
@@ -138,30 +149,30 @@ const ChatScreen = ({ navigation, route }) => {
                         uri: data.photoURL,
                       }}
                     />
+                    <Text style={styles.receiverText}>{data.body}</Text>
+                    {/* <Text style={styles.senderName}>{data.number}</Text> */}
+                  </View>
+                ) : (
+                  <View key={data.time} style={styles.sender}>
+                    <Avatar
+                      position="absolute"
+                      rounded
+                      containerStyle={{
+                        position: "absolute",
+                        bottom: -15,
+                        left: -5,
+                      }}
+                      bottom={-15}
+                      left={-5}
+                      size={30}
+                      source={{
+                        uri: data.photoURL,
+                      }}
+                    />
                     <Text style={styles.senderText}>{data.body}</Text>
                     <Text style={styles.senderName}>{data.number}</Text>
                   </View>
-                // ) : (
-                //   <View key={data.time} style={styles.sender}>
-                //     <Avatar
-                //       position="absolute"
-                //       rounded
-                //       containerStyle={{
-                //         position: "absolute",
-                //         bottom: -15,
-                //         right: -5,
-                //       }}
-                //       bottom={-15}
-                //       right={-5}
-                //       size={30}
-                //       source={{
-                //         uri: data.photoURL,
-                //       }}
-                //     />
-                //     <Text style={styles.senderText}>{data.body}</Text>
-                //     <Text style={styles.senderName}>{data.number}</Text>
-                //   </View>
-                // )
+                )
               )}
             </ScrollView>
             <View style={styles.footer}>

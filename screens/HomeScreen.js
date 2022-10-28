@@ -15,7 +15,7 @@ import { auth, db } from "../firebase";
 const chatdata = require("./data.json");
 
 const HomeScreen = ({ navigation }) => {
-  const [chats, setChats] = useState(Object.keys(chatdata));
+  const [chats, setChats] = useState(chatdata);
   const signOutUser = () => {
     auth.signOut().then(() => {
       navigation.replace("Login");
@@ -70,15 +70,19 @@ const HomeScreen = ({ navigation }) => {
   }, [navigation]);
 
   const enterChat = (id, chatName) => {
-    navigation.navigate("Chat", { id, chatName, messages: chatdata[chatName] });
+    navigation.navigate("Chat", {
+      id,
+      chatName,
+      messages: chatdata[chatName],
+      setMessages: (messages) => setChats({ ...chats, [chatName]: messages }),
+    });
   };
   return (
     <SafeAreaView>
       <ScrollView style={styles.container}>
-        {chats.map((chatName, id) => (
+        {Object.keys(chats).map((chatName, id) => (
           <CustomListItem
             key={id}
-            //
             id={id}
             chatName={chatName}
             enterChat={enterChat}
