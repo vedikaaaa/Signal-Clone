@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 10,
     backgroundColor: "white",
+    //
   },
   button: {
     width: 200,

@@ -11,25 +11,27 @@ import { Avatar } from "react-native-elements";
 import { AntDesign, SimpleLineIcons } from "@expo/vector-icons";
 import CustomListItem from "../components/CustomListItem";
 import { auth, db } from "../firebase";
+// import chatdata from "./data.json";
+const chatdata = require("./data.json");
 
 const HomeScreen = ({ navigation }) => {
-  const [chats, setChats] = useState([]);
+  const [chats, setChats] = useState(Object.keys(chatdata));
   const signOutUser = () => {
     auth.signOut().then(() => {
       navigation.replace("Login");
     });
   };
-  useEffect(() => {
-    const unsubscribe = db.collection("chats").onSnapshot((snapshot) =>
-      setChats(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      )
-    );
-    return unsubscribe;
-  }, []);
+  // useEffect(() => {
+  //   const unsubscribe = db.collection("chats").onSnapshot((snapshot) =>
+  //     setChats(
+  //       snapshot.docs.map((doc) => ({
+  //         id: doc.id,
+  //         data: doc.data(),
+  //       }))
+  //     )
+  //   );
+  //   return unsubscribe;
+  // }, []);
   useLayoutEffect(() => {
     navigation.setOptions({
       title: "Signal",
@@ -58,6 +60,7 @@ const HomeScreen = ({ navigation }) => {
           <TouchableOpacity
             onPress={() => navigation.navigate("AddChat")}
             activeOpacity={0.5}
+            //
           >
             <SimpleLineIcons name="pencil" size={24} color="black" />
           </TouchableOpacity>
@@ -67,14 +70,15 @@ const HomeScreen = ({ navigation }) => {
   }, [navigation]);
 
   const enterChat = (id, chatName) => {
-    navigation.navigate("Chat", { id, chatName });
+    navigation.navigate("Chat", { id, chatName, messages: chatdata[chatName] });
   };
   return (
     <SafeAreaView>
       <ScrollView style={styles.container}>
-        {chats.map(({ id, data: { chatName } }) => (
+        {chats.map((chatName, id) => (
           <CustomListItem
             key={id}
+            //
             id={id}
             chatName={chatName}
             enterChat={enterChat}
